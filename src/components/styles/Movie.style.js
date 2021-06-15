@@ -6,15 +6,17 @@ export const SingleMovie = styled.div`
   max-width: 100%;
   justify-content: center;
   align-items: center;
-  button {
-    margin: 1rem 0;
-    padding: 0.5rem;
-    border: 3px solid #00b4cc;
-    background-color: #00b4cc;
-    font-weight: 600;
-    color: #ffffff;
-    border-radius: 10px;
-  }
+  padding: 0.5rem;
+`;
+
+export const AllButton = styled.button`
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border: 3px solid #00b4cc;
+  background-color: #00b4cc;
+  font-weight: 600;
+  color: #ffffff;
+  border-radius: 10px;
 `;
 
 export const MovieImage = styled.img`

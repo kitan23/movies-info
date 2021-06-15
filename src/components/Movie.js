@@ -1,10 +1,19 @@
 import React from "react";
-import { SingleMovie, MovieImage, ReleaseInfo } from "./styles/Movie.style";
-import { useState, useEffect } from "react";
+import {
+  AllButton,
+  SingleMovie,
+  MovieImage,
+  ReleaseInfo,
+} from "./styles/Movie.style";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../contexts/ThemeContext.js";
 
 function Details({ actors, awards, plot, score, boxoffice }) {
+  const { theme } = useContext(ThemeContext);
+  const { isLightTheme, light, dark } = theme;
+  const style = isLightTheme ? light : dark;
   return (
-    <SingleMovie>
+    <SingleMovie style={style}>
       <div>{plot}</div>
       <div>Actors: {actors}</div>
       <div>Awards: {awards}</div>
@@ -17,6 +26,10 @@ function Details({ actors, awards, plot, score, boxoffice }) {
 export default function Movie({ title, poster, year }) {
   const [view, setView] = useState(false);
   const [details, setDetails] = useState({});
+  const { theme } = useContext(ThemeContext);
+  const { isLightTheme, light, dark } = theme;
+  const style = isLightTheme ? light : dark;
+
   useEffect(() => {
     async function fetchMovie() {
       const res = await fetch(
@@ -36,8 +49,8 @@ export default function Movie({ title, poster, year }) {
   }, [title]);
 
   return (
-    <SingleMovie>
-      <ReleaseInfo>
+    <SingleMovie style={style}>
+      <ReleaseInfo style={style}>
         <div>{title}</div>
         <span>{year}</span>
       </ReleaseInfo>
@@ -53,7 +66,7 @@ export default function Movie({ title, poster, year }) {
           A
         />
       )}
-      <button onClick={() => setView(!view)}>View details</button>
+      <AllButton onClick={() => setView(!view)}>View details</AllButton>
     </SingleMovie>
   );
 }

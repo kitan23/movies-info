@@ -5,6 +5,7 @@ export const MovieList = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-row-gap: 10vh;
+  grid-column-gap: 1rem;
   padding: 5rem 0.5rem;
 
   @media only screen and (min-width: 900px) {
