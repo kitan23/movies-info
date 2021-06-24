@@ -1,12 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import Movie from "./components/Movie.js";
-import ThemeToggle from "./components/ThemeToggle";
 import { MovieList } from "./components/styles/MovieList.style";
-import { Navbar } from "./components/styles/Navbar.style";
 import { GlobalStyles } from "./components/GlobalStyles.style";
 import { AppContainer } from "./components/styles/AppContainer.style";
 import ThemeContextProvider from "./contexts/ThemeContext.js";
 import { ThemeContext } from "./contexts/ThemeContext.js";
+import Nav from "./components/NavBar";
 
 function AppWrapper() {
   return (
@@ -46,18 +45,12 @@ function App() {
   return (
     <AppContainer style={style}>
       <GlobalStyles />
-      <Navbar>
-        <div>Movies/TV Shows</div>
-        {results && <ThemeToggle />}
-        <form onSubmit={(e) => formSubmit(e)}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button type="submit">Find</button>
-        </form>
-      </Navbar>
+      <Nav
+        setInput={setInput}
+        input={input}
+        formSubmit={formSubmit}
+        results={results}
+      />
       {!query && (
         <h2 style={{ marginLeft: "35%" }}>Search for Movies or TV shows</h2>
       )}
