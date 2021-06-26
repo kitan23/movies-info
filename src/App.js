@@ -1,72 +1,46 @@
-import { useEffect, useState, useContext } from "react";
-import Movie from "./components/Movie.js";
-import { MovieList } from "./components/styles/MovieList.style";
+import React from "react";
+import Section from "./components/Section";
+import requests from "./requests";
+import Banner from "./components/Banner";
+import Nav from "./components/Nav";
 import { GlobalStyles } from "./components/GlobalStyles.style";
-import { AppContainer } from "./components/styles/AppContainer.style";
-import ThemeContextProvider from "./contexts/ThemeContext.js";
-import { ThemeContext } from "./contexts/ThemeContext.js";
-import Nav from "./components/NavBar";
-
-function AppWrapper() {
-  return (
-    <ThemeContextProvider>
-      <App />
-    </ThemeContextProvider>
-  );
-}
 
 function App() {
-  const [input, setInput] = useState("");
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState([]);
-
-  const { theme } = useContext(ThemeContext);
-  const { isLightTheme, light, dark } = theme;
-  const style = isLightTheme ? light : dark;
-
-  useEffect(() => {
-    async function fetchMovie() {
-      const res = await fetch(
-        `https://www.omdbapi.com/?apikey=f08e8f89&s=${query}`
-      );
-      const data = await res.json();
-      const films = data.Search;
-      setResults(films);
-      films && console.log(films);
-    }
-    fetchMovie();
-  }, [query]);
-
-  const formSubmit = (e) => {
-    e.preventDefault();
-    setQuery(input);
-    setInput("");
-  };
   return (
-    <AppContainer style={style}>
+    <div className="App">
+      <Nav />
       <GlobalStyles />
-      <Nav
-        setInput={setInput}
-        input={input}
-        formSubmit={formSubmit}
-        results={results}
+      <Banner />
+      <Section
+        section="Trending"
+        fetchUrl={requests.fetchTrending}
+        isLargeSection={true}
       />
-      {!query && (
-        <h2 style={{ marginLeft: "35%" }}>Search for Movies or TV shows</h2>
-      )}
-      <MovieList>
-        {results &&
-          results.map((result, index) => (
-            <Movie
-              key={index}
-              title={result.Title}
-              year={result.Year}
-              poster={result.Poster}
-            />
-          ))}
-      </MovieList>
-    </AppContainer>
+      <Section
+        section="NETFLIX ORIGINAL"
+        fetchUrl={requests.fetchNetflixOriginal}
+      />
+      <Section section="Top Rated" fetchUrl={requests.fetchTopRated} />
+      <Section section="Action" fetchUrl={requests.fetchActionMovie} />
+      <Section section="Romance" fetchUrl={requests.fetchRomanceMovie} />
+      <Section section="Comedy" fetchUrl={requests.fetchComedyMovie} />
+      <Section section="Horror" fetchUrl={requests.fetchHorrorMovie} />
+      <Section section="Documentary" fetchUrl={requests.fetchDocumentary} />
+      <div
+        className="footers"
+        style={{
+          display: "flex",
+          paddingTop: "10vh",
+          paddingBottom: "5vh",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "#757575",
+        }}
+      >
+        <div>Design by Kien Tran</div>
+      </div>
+    </div>
   );
 }
 
-export default AppWrapper;
+export default App;
