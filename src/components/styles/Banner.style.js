@@ -27,12 +27,18 @@ export const BannerContent = styled.div`
     font-weight: 700;
   }
   .banner_overview {
-    width: 45rem;
+    width: 33vw;
     line-height: 1.3;
     font-size: 1rem;
-    max-height: 5rem;
-    max-width: 400px;
+    max-height: 10rem;
+    /* max-width: 200px; */
   }
+  @media only screen and (max-width: 800px) {
+    .banner_overview {
+      width: 200px;
+    }
+  }
+
   .banner_buttons {
     margin: 1rem 0;
   }
